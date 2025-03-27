@@ -14,6 +14,9 @@ const hpValue = document.querySelector('#hp');
 const mpValue = document.querySelector('#mp');
 const moneyValue = document.querySelector('#money');
 
+// 토벌 진행 유무
+let isSuppression = false;
+
 // 영웅 정보를 객체로 관리
 let myHero = {
   name: "",
@@ -129,11 +132,12 @@ if (subdueBtn) {
       return;
     }
 
-    if (subdueBtn.classList.contains('disabled-btn')) {
+    if (isSuppression && subdueBtn.classList.contains('disabled-btn')) {
       alert('이미 토벌 중 입니다');
       return;
     }
 
+    isSuppression = true; // 토벌중으로 변경
     subdueBtn.classList.add('disabled-btn');
 
     const battleLog = document.querySelector('.log');
@@ -165,12 +169,15 @@ function handleGameOver(message, battleLog, li) {
 
   // "토벌 완료" 버튼 클릭 시 battleLog 비우기
   finishBtn.addEventListener("click", () => {
+    isSuppression = false; // 토벌 완료
     battleLog.innerHTML = ""; // battleLog 내용 비우기
   });
 }
 
-let gameInterval;
 
+let gameInterval; // 게임 인터벌 함수 저장 변수
+
+// 게임 시작
 function startGame(battleLog) {
 
   gameInterval = setInterval(() => {
@@ -193,7 +200,7 @@ function startGame(battleLog) {
     let randomEvent = Math.floor(Math.random() * 3); // 0~2 난수 생성
 
     if (randomEvent == 0) {
-      li.innerText = "🚶‍♂️ 아무 문제 없다. 계속 이동...";
+      li.innerText = "🚶‍♂️ 평화로운 곳이다. 계속 이동...";
       battleLog.append(li);
 
     } else if (randomEvent == 1) {
@@ -244,7 +251,7 @@ function handleGoblinEventResult(choice, battleLog) {
   const li = document.createElement('li');
 
   if (choice == 1) {
-    // 도망 확률 적용 (성공 40%, 실패 60%)
+    // 도망 확률 적용 (성공 40%, 실패 30%, 돈흘림 30%)
     let escapeChance = Math.random() * 100; // 0~99 난수 생성
 
     if (escapeChance < 40) {
@@ -307,6 +314,11 @@ if (shopBtn) {
       return;
 
     } else {
+      if(isSuppression) {
+        alert('토벌을 완료하셔야 합니다');
+        return;
+      }
+
       isOpenShop = true; // 상점 들어옴
       shopBtn.innerText = '나가기';
       createShopItems(shopLog);
