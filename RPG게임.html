@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPG 게임</title>
+  <link rel="stylesheet" href="./RPG게임.css">
+</head>
+
+<body>
+  <main>
+    <!-- 1. 입장 -->
+    <section id="entrance">
+      <div class="frame-box">
+        <img class="frame" src="./images/프레임.jpg">
+      </div>
+      <button type="button" id="enter-btn">
+        입 장 하 기
+      </button>
+    </section>
+
+    <!-- 2. 캐릭터 생성 -->
+    <section id="create-hero">
+      <div class="frame-box-ch">
+        <img class="frame" src="./images/프레임.jpg">
+      </div>
+
+      <section id="hero-generator">
+        <section class="hero-info-section">
+          <div>
+            <img id="hero-img" src="./images/전사_남자.png">
+          </div>
+
+          <section class="hero-info">
+            <p class="title">[ 직업 선택 ]</p>
+            <label>
+              전사 <input type="radio" name="job" value="전사" checked>
+            </label>
+            <label>
+              마법사 <input type="radio" name="job" value="마법사">
+            </label>
+            <label>
+              궁수 <input type="radio" name="job" value="궁수">
+            </label>
+
+            <p class="title">[ 성별 선택 ]</p>
+            <label>
+              남자 <input type="radio" name="gender" value="남자" checked>
+            </label>
+            <label>
+              여자 <input type="radio" name="gender" value="여자">
+            </label>
+
+            <p>[ 닉네임 ]</p>
+            <input type="text" name="nickname" placeholder="닉네임 10글자까지" maxlength="10" autocomplete="off">
+
+          </section>
+        </section>
+
+        <button id="generator-btn">생성하기</button>
+
+      </section>
+    </section>
+
+    <!-- 3. 게임화면 -->
+    <section id="game-screen">
+
+      <section>
+        <div class="hero-profile">
+          <!-- 이미지 -->
+          <img id="hero-img">
+          <!-- 닉네임-->
+          <p id="my-nickname"></p>
+          <!-- 체력 / 마력-->
+          HP : <span id="hp"></span>
+          <span>|</span>
+          MP : <span id="mp"></span>
+          <!-- 돈 -->
+          <p id="money"></p>
+        </div>
+
+        <div class="game-btn">
+          <button id="subdue-btn">토벌시작</button>
+          <button id="shop-btn">상점</button>
+        </div>
+      </section>
+
+      <div class="game-log">
+        <div class="frame-box-game">
+          <img class="frame" src="./images/프레임.jpg">
+        </div>
+        <div class="log-box">
+          <ul class="log"></ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="./RPG게임.js"></script>
+</body>
+
+</html>
